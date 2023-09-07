@@ -1,0 +1,50 @@
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: white;
+    position: relative;
+}
+.bag{
+    position: absolute;
+    top: 0%;
+    left: calc(100% - 0px);
+    width: 400px;
+    height: 100%;
+    background-color: #9400FF;
+}
+.open{
+    transition: 500ms;
+    left: calc(100% - 400px) !important;
+    box-shadow: rgba(0, 0, 0, 0.080) -20px 0px 20px 20px;
+}
+.main-color{
+    color: #9400FF;
+}
+.my-bag, .liked{
+    cursor: pointer;
+}
+.search{
+    width: 20rem !important;
+    padding: 0% !important;
+    margin-right: 2rem;
+}
+#search{
+    width: 100%;
+}
+#searchText{
+    width: 20rem;
+    margin-right: 2rem;
+}
+
+.nav-open{
+    height: fit-content !important;
+}
+
+.product-list > div img {
+    width: 50px;
+}
+
