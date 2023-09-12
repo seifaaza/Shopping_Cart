@@ -1,8 +1,6 @@
 // Navbar Toggle
-function navToggle() {
-    document.getElementById('nav-icon').classList
-    .toggle('nav-open')
-}
+const navToggle = () => document.getElementById('nav-icon').classList.toggle('nav-open')
+
 let total = 0, liked = [], added = []
 const products = [
     {
@@ -58,23 +56,20 @@ const products = [
 const productList = document.querySelector('.product-list')
 products.map((product, index) => {
     productList.innerHTML +=
-   `<div id="${product.id}" class="col-lg-3 col-sm-6">
-       <img src='./assets/images/${product.img}'/>
-       <p>${product.name}</p>
-       <span>${product.price} </span>ETH
-       <input type="number" onchange='quantity(this)'/>
-       <button id="like" onclick='like(this)'>Like</button>
-       <button id="add" onclick='add(this)'>Add</button>
+   `<div id="${product.id}" class="product">
+       <div><span class="product-img" style="background-image: url('./assets/images/${product.img}')"></span></div>
+       <span><p>${product.price} ETH</p><p>${product.name}</p></span>
+       <span><i class="bi bi-heart" id="like" onclick='like(this)'></i>
+       <i class="bi bi-plus-circle-fill" id="add" onclick='add(this)'></i></span>
     </div>`
 })
 
 // Actions
 const push = (location, locationName, obj) => {
-    const id = obj.parentElement.id,
-     img = obj.parentElement.children[0].src,
-     name = obj.parentElement.children[1].innerHTML,
-     price = obj.parentElement.children[2].innerHTML
-
+    const id = obj.parentElement.parentElement.id
+     let item = ""
+     products.map((product) => id == product.id ? item = product : null)
+     let img = item.img, price = item.price, name = item.name
     // check occurence of product
     if(!location.some((el) => el.id === id)) {
         location.push({id, img, name, price})
@@ -82,12 +77,21 @@ const push = (location, locationName, obj) => {
     }else if(locationName == "liked"){
         location.pop({id, img, name, price}) 
     } else alert("Product already exists !")
-    console.log(locationName);
-    console.log(location);
+    console.log(`liked`);
+    console.log(liked);
+    console.log(`added`);
+    console.log(added);
     console.log(total);
 }
+const likeToggle = (obj) => {
+    obj.classList.toggle('bi-heart')
+    obj.classList.toggle('bi-heart-fill')
+}
 const add = (obj) => push(added, "added", obj)
-const like = (obj) => push(liked, "liked", obj)
+const like = (obj) =>{
+     push(liked, "liked", obj)
+     likeToggle(obj)
+}
 
 const likedBag = document.querySelector('#likedBag')
 const addedBag = document.querySelector('#addedBag')
@@ -100,4 +104,8 @@ document.querySelector('#likedClick').onclick = () => {
     addedBag.classList.remove('open')
     likedBag.classList.toggle('open')
 }
+
+
+
+
 
