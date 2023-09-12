@@ -51,6 +51,54 @@ const products = [
         name: "Bored ika",
         price: 18.20,
     },
+    {
+        id: 1,
+        img: "nft1.jpg",
+        name: "Bored Ape",
+        price: 27.89,
+    },
+    {
+        id: 2,
+        img: "nft2.jpg",
+        name: "Bored Ace",
+        price: 17.89,
+    },
+    {
+        id: 3,
+        img: "nft3.jpg",
+        name: "Bored Ace",
+        price: 10.90,
+    },
+    {
+        id: 4,
+        img: "nft4.jpg",
+        name: "Bored ika",
+        price: 13.80,
+    },
+    {
+        id: 5,
+        img: "nft5.jpg",
+        name: "Bored Kib",
+        price: 22.80,
+    },
+    {
+        id: 6,
+        img: "nft6.jpg",
+        name: "Bored Bam",
+        price: 19.40,
+    },
+    {
+        id: 7,
+        img: "nft7.jpg",
+        name: "Bored Lak",
+        price: 18.35,
+    },
+    {
+        id: 8,
+        img: "nft8.jpg",
+        name: "Bored ika",
+        price: 18.20,
+    },
 ]
 // Product List
 const productList = document.querySelector('.product-list')
