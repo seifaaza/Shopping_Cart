@@ -75,7 +75,6 @@
       </div>
     </nav>
     <nav class="side-bar navbar bg-body-tertiary">
-      <div class="container">
         <div
           class="offcanvas offcanvas-end"
           tabindex="-1"
@@ -90,54 +89,54 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="offcanvas-body">
-            <li
-              id="addedClick"
-              class="my-bag d-flex justify-content-center align-items-center gap-2 mx-2"
-            >
+          <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input onclick="addedToggle(this)" type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="btnradio1">
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="#661ba8"
-                class="bi bi-bag-fill"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"
-                />
-              </svg>
-              <span class="main-color">Added</span>
-            </li>
-            <li
-              id="likedClick"
-              class="liked d-flex justify-content-center align-items-center gap-2 mx-2 pointer-event"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="#661ba8"
+              class="bi bi-bag-fill"
+              viewBox="0 0 16 16"
             >
+              <path
+                d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"
+              />
+            </svg>
+            <span class="main-color">Added</span>
+            </label>
+          
+            <input onclick="likedToggle(this)" type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio2">
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="#661ba8"
-                class="bi bi-heart-fill"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
-                />
-              </svg>
-              <span class="main-color">Liked</span>
-            </li>
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="#661ba8"
+              class="bi bi-heart-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
+              />
+            </svg>
+            <span class="main-color">Liked</span>
+            </label>
+          
+          </div>
+          <div class="menu-body h-100 p-3">
+            <div  class="added-body">You have not added any item yet</div>
+            <div  class="liked-body">You have not liked any item yet</div>
           </div>
         </div>
-      </div>
     </nav>
     <div class="main position-relative overflow-hidden">
       <img class="blur1" src="./assets/gradient/blur1.png" alt="" />
       <img class="blur2" src="./assets/gradient/blur1.png" alt="" />
       <img class="blur3" src="./assets/gradient/blur1.png" alt="" />
       <img class="blur4" src="./assets/gradient/blur1.png" alt="" />
-
           <div class="page-content my-5">
             <div class="main-banner">
               <img
@@ -170,11 +169,9 @@
               </div>
             </div>
             <div class="container product-list py-5">
-
               </div>
             </div>
-          </div>
-
+    </div>
     </div>
     <footer>
       <div class="container">

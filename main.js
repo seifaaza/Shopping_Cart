@@ -66,17 +66,17 @@ products.map((product, index) => {
 })
 
 // Actions
-const push = (location, locationName, obj) => {
+const push = (array, arrayName, obj) => {
     const id = obj.parentElement.parentElement.id
-     let item = ""
+
      products.map((product) => id == product.id ? item = product : null)
      let img = item.img, price = item.price, name = item.name
-    // check occurence of product
-    if(!location.some((el) => el.id === id)) {
-        location.push({id, img, name, price})
-        locationName == "added" ? total = parseFloat(price)+total : total
-    }else if(locationName == "liked"){
-        location.pop({id, img, name, price}) 
+
+    if(!array.some((el) => el.id === id)) {
+        array.push({id, img, name, price})
+        arrayName == "added" ? total = parseFloat(price)+total : total
+    }else if(arrayName == "liked"){
+        array.pop({id, img, name, price}) 
     } else alert("Product already exists !")
     console.log(`liked`);
     console.log(liked);
@@ -84,27 +84,37 @@ const push = (location, locationName, obj) => {
     console.log(added);
     console.log(total);
 }
+
 const likeToggle = (obj) => {
     obj.classList.toggle('bi-heart')
     obj.classList.toggle('bi-heart-fill')
 }
-const add = (obj) => push(added, "added", obj)
+const add = (obj) => {
+    push(added, "added", obj)
+    displayToCart(added, "added", addedBody)
+}
 const like = (obj) =>{
-     push(liked, "liked", obj)
-     likeToggle(obj)
+    likeToggle(obj)
+    push(liked, "liked", obj)
+    displayToCart(liked, "liked", likedBody)
 }
 
-const likedBag = document.querySelector('#likedBag')
-const addedBag = document.querySelector('#addedBag')
+const displayToCart = (array, arrayName, location) => array.length == 0 
+? location.innerHTML = `You have not ${arrayName} any item yet` 
+: location.innerHTML = array.map(item => `<p>${item.name}</p>` ) 
 
-document.querySelector('#addedClick').onclick = () => {
-    likedBag.classList.remove('open')
-    addedBag.classList.toggle('open')
+addedBody = document.querySelector('.added-body')
+likedBody = document.querySelector('.liked-body')
+
+const addedToggle = () => {
+    likedBody.style.display = "none"
+    addedBody.style.display = "block"
 }
-document.querySelector('#likedClick').onclick = () => {
-    addedBag.classList.remove('open')
-    likedBag.classList.toggle('open')
+const likedToggle = () => {
+    addedBody.style.display = "none"
+    likedBody.style.display = "block"
 }
+
 
 
 

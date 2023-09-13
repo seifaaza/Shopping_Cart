@@ -10,10 +10,6 @@
 }
 html, body {
     font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-    background-color: #1e1e1e;
-    font-size: 16px;
-    -ms-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -68,6 +64,7 @@ input:focus, input{
 .blur1, .blur2, .blur3, .blur4{
     width: 500px; 
     position: absolute;
+    filter: contrast(200%);
 }
 .blur1{
     left: 0%;
@@ -263,4 +260,24 @@ footer{
     background-color: var(--mainColor);
     color: white;
     padding: 5rem 0%;
+}
+.btn-group{
+    padding: 1rem ;
+}
+.btn-group .btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    border-color: var(--mainColor);
+}
+.liked-body{
+    display: none;
+}
+.btn-check:checked+.btn, .btn-check:checked+label span, .btn-check:checked+label svg {
+    transition: none;
+    fill: white;
+    color: white;
+    background-color: var(--mainColor);
+    border-color: var(--mainColor);
 }
