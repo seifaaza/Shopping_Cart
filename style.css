@@ -9,9 +9,12 @@
     --mainColor: #530895;
 }
 html, body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+.text-violet{
+    color: var(--mainColor);
 }
 .btn-white{
     color: white;
@@ -280,4 +283,18 @@ footer{
     color: white;
     background-color: var(--mainColor);
     border-color: var(--mainColor);
+}
+.cart-product{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.cart-product img{
+    width: 80px;
+    border-radius: 6px;
+}
+.bi-trash3-fill, .bi-x-lg{
+    color: red;
+    margin-left: 1rem;
 }

@@ -28,7 +28,6 @@
     ></script>
     <link rel="stylesheet" href="style.css" />
   </head>
-
   <body>
     <nav
       class="main-nav navbar navbar-expand-lg bg-body-tertiary position-relative"
@@ -126,12 +125,25 @@
             </label>
           
           </div>
-          <div class="menu-body h-100 p-3">
+          <div class="menu-body h-100 p-3 overflow-scroll">
             <div  class="added-body">You have not added any item yet</div>
             <div  class="liked-body">You have not liked any item yet</div>
           </div>
         </div>
     </nav>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5 text-violet" id="exampleModalLabel">Product already exists !</h1>
+            <button type="button" class="btn-close" onclick="closeAlertModal()"></button>
+          </div>
+          <div class="modal-body">
+            you have already add this item to your cart, choose another one
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="main position-relative overflow-hidden">
       <img class="blur1" src="./assets/gradient/blur1.png" alt="" />
       <img class="blur2" src="./assets/gradient/blur1.png" alt="" />

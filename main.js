@@ -1,6 +1,3 @@
-// Navbar Toggle
-const navToggle = () => document.getElementById('nav-icon').classList.toggle('nav-open')
-
 let total = 0, liked = [], added = []
 const products = [
     {
@@ -65,7 +62,26 @@ products.map((product, index) => {
     </div>`
 })
 
-// Actions
+const body = document.querySelector('body')
+const backdrop = document.createElement("div");
+const alertModal = document.querySelector('#exampleModal')
+
+const openAlertModal = () => {
+    document.body.appendChild(backdrop);
+    body.classList.add('overflow-hidden', 'modal-open')
+    backdrop.classList.add('modal-backdrop', 'fade', 'show')
+    alertModal.style.display="block"
+    alertModal.classList.add('show')
+}
+const closeAlertModal = () => {
+    body.classList.remove('overflow-hidden', 'modal-open')
+    backdrop.classList.remove('modal-backdrop', 'fade', 'show')
+    alertModal.style.display="none"
+    alertModal.classList.remove('show')
+}
+
+body.onclick = (e) => e.target == alertModal ? closeAlertModal() : null;
+  
 const push = (array, arrayName, obj) => {
     const id = obj.parentElement.parentElement.id
 
@@ -77,8 +93,11 @@ const push = (array, arrayName, obj) => {
         arrayName == "added" ? total = parseFloat(price)+total : total
     }else if(arrayName == "liked"){
         liked = array.filter(item => item.id !== id);
-    } else alert("Product already exists !")
+    } else {
+        openAlertModal()
+    }
 }
+
 
 const likeToggle = (obj) => {
     obj.classList.toggle('bi-heart')
@@ -96,8 +115,11 @@ const like = (obj) =>{
 
 const displayToCart = (array, arrayName, location) => array.length == 0 
 ? location.innerHTML = `You have not ${arrayName} any item yet` 
-: location.innerHTML = array.map(item => `<p>${item.name}</p>` ) 
-
+: location.innerHTML = array.map(item => `<div class="cart-product">
+<img src="./assets/images/${item.img}" />
+<div><h3>${item.price} ETH</h3><p>${item.name}</p></div>
+${arrayName == "liked" ? '<i class="bi bi-x-lg"></i>' : '<i class="bi bi-trash3-fill"></i>'}
+</div><hr/>` ) 
 addedBody = document.querySelector('.added-body')
 likedBody = document.querySelector('.liked-body')
 
