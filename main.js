@@ -81,23 +81,28 @@ const closeAlertModal = () => {
 }
 
 body.onclick = (e) => e.target == alertModal ? closeAlertModal() : null;
-  
+
+
+
 const push = (array, arrayName, obj) => {
     const id = obj.parentElement.parentElement.id
 
      products.map((product) => id == product.id ? item = product : null)
      let img = item.img, price = item.price, name = item.name
 
-    if(!array.some((el) => el.id === id)) {
-        array.push({id, img, name, price})
-        arrayName == "added" ? total = parseFloat(price)+total : total
-    }else if(arrayName == "liked"){
-        liked = array.filter(item => item.id !== id);
-    } else {
-        openAlertModal()
-    }
+    !array.some((el) => el.id === id) ? array.push({id, img, name, price})
+    && arrayName == "added" ? total = parseFloat(price)+total : total
+    : arrayName == "liked" ? removeLikedItem(id) : openAlertModal()
+    
 }
 
+const removeLikedItem = (itemId) => {
+    liked = liked.filter(item => item.id != itemId);
+
+    displayToCart(liked, "liked", likedBody)
+
+}
+const removeAddedItem = (itemId) => added = added.filter(item => item.id != itemId);
 
 const likeToggle = (obj) => {
     obj.classList.toggle('bi-heart')
@@ -115,11 +120,13 @@ const like = (obj) =>{
 
 const displayToCart = (array, arrayName, location) => array.length == 0 
 ? location.innerHTML = `You have not ${arrayName} any item yet` 
-: location.innerHTML = array.map(item => `<div class="cart-product">
+: location.innerHTML = array.map(item => 
+`<div class="cart-product">
 <img src="./assets/images/${item.img}" />
 <div><h3>${item.price} ETH</h3><p>${item.name}</p></div>
-${arrayName == "liked" ? '<i class="bi bi-x-lg"></i>' : '<i class="bi bi-trash3-fill"></i>'}
+${arrayName == "liked" ? `<i onclick="removeLikedItem(${item.id})" class="bi bi-x-lg"></i>` : `<i class="bi bi-trash3-fill"></i>`}
 </div><hr/>` ) 
+,
 addedBody = document.querySelector('.added-body')
 likedBody = document.querySelector('.liked-body')
 
@@ -131,6 +138,7 @@ const likedToggle = () => {
     addedBody.style.display = "none"
     likedBody.style.display = "block"
 }
+
 
 
 
