@@ -76,13 +76,8 @@ const push = (array, arrayName, obj) => {
         array.push({id, img, name, price})
         arrayName == "added" ? total = parseFloat(price)+total : total
     }else if(arrayName == "liked"){
-        array.pop({id, img, name, price}) 
+        liked = array.filter(item => item.id !== id);
     } else alert("Product already exists !")
-    console.log(`liked`);
-    console.log(liked);
-    console.log(`added`);
-    console.log(added);
-    console.log(total);
 }
 
 const likeToggle = (obj) => {
