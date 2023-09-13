@@ -285,8 +285,9 @@ footer{
     border-color: var(--mainColor);
 }
 .cart-product{
+    padding: 0% 2rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: 1rem;
 }
