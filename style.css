@@ -300,11 +300,23 @@ footer{
     border-color: var(--mainColor);
 }
 .cart-product{
-    padding: 0% 2rem;
+    padding: 0% .5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
+}
+.cart-product > span{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.cart-product p{
+    margin: 0% !important;
+}
+.cart-product span:first-of-type i{
+    color: rgb(115, 115, 115);
+    font-size: 1.2rem !important;
+    margin: .1rem;
 }
 .cart-product img{
     width: 80px;

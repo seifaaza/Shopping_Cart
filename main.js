@@ -68,7 +68,7 @@ const listProduct = (array) => productList.innerHTML = array.map(product =>
        <div><span class="product-img" style="background-image: url('./assets/images/${product.img}')"></span></div>
        <span><p>${product.price} ETH</p><p>${product.name}</p></span>
        <span><i class="bi bi-heart" id="like" onclick='like(this)'></i>
-       <i class="bi bi-plus-circle-fill" id="add" onclick='add(this)'></i></span>
+       <i class="bi bi-bag-plus-fill" id="add" onclick='add(this)'></i></span>
     </div>` ).join('') 
 
 listProduct(products)
@@ -173,10 +173,24 @@ const totalBody = document.querySelector(".total");
 const insertTotal = (total) => {
     totalBody.innerHTML = `Total : ${total.toFixed(2)} ETH`.replace('-', '')
 }
-
-const displayToCart = (array, arrayName, location) => {
+const plus = (id) => {
+    products[id].quantity += 1
+    insertTotal(products[id -1].price * products[id].quantity)
+    displayToCart(added, "added", addedBody, products[id].quantity)
+}
+const minus = (id) => {
+    products[id].quantity > 0 ? products[id].quantity -= 1 : products[id].quantity
+    insertTotal(products[id -1].price * products[id].quantity)
+    displayToCart(added, "added", addedBody, products[id].quantity)
+}
+const displayToCart = (array, arrayName, location, quantity = 1) => {
     array.length == 0 ? location.innerHTML = `You have not ${arrayName} any item yet` 
     : location.innerHTML = array.map(item => `<div class="cart-product">
+    <span>
+    <p>${quantity}</p>
+    <span><i onclick="plus(${item.id})" class="bi bi-plus-circle-fill"></i>
+    <i onclick="minus(${item.id})" class="bi bi-dash-circle-fill"></i></span>
+    </span>
     <img src="./assets/images/${item.img}" />
     <div><h3>${item.price} ETH</h3><p>${item.name}</p></div>
     ${arrayName == "liked" ? `<i onclick="removeLikedItem(${item.id})" class="bi bi-x-lg"></i>` 
