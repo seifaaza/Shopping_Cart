@@ -299,3 +299,12 @@ footer{
     color: red;
     margin-left: 1rem;
 }
+.total{
+    font-size: 1.2rem;
+    color: white;
+    padding: 2rem;
+    bottom: 0;
+    z-index: 2;
+    background-color: #530895;
+    width: 100%;
+}

@@ -102,18 +102,19 @@ const removeAddedItem = (itemId, itemPrice) => {
     displayToCart(added, "added", addedBody)
     let quantity = 1
     products.map((product) => itemId == product.id ? quantity = product.quantity : null)
-    total = total - itemPrice * quantity
+    total -= itemPrice * quantity
+
     insertTotal(total)
 }
 
 const push = (array, arrayName, obj) => {
     const id = obj.parentElement.parentElement.id
-    let quantity = 0
+    let quantity = 1
     products.map((product) => {
         if (id == product.id) { item = product ; quantity = product.quantity}})
     let img = item.img, price = item.price, name = item.name
 
-    !array.some((el) => el.id === id) ? array.push({id, img, name, price})
+    !array.some((el) => el.id === id) ? array.push({id, img, name, price, quantity})
     && arrayName == "added" ? total += parseFloat(price )* quantity : total
     : arrayName == "liked" ? removeLikedItem(id) : openAlertModal()
     insertTotal(total)
@@ -140,17 +141,17 @@ likedBody = document.querySelector('.liked-body')
 const addedToggle = () => {
     likedBody.style.display = "none"
     addedBody.style.display = "block"
+    totalBody.style.display = "block"
 }
 const likedToggle = () => {
     addedBody.style.display = "none"
     likedBody.style.display = "block"
+    totalBody.style.display = "none"
 }
 
-const totalContent = document.createElement("div");
-likedBody.appendChild(totalContent)
-
+const totalBody = document.querySelector(".total");
 const insertTotal = (total) => {
-totalContent.innerHTML = `Total : ${total.toFixed(2)} ETH`
+    totalBody.innerHTML = `Total : ${total.toFixed(2)} ETH`.replace('-', '')
 }
 
 const displayToCart = (array, arrayName, location, obj) => {
