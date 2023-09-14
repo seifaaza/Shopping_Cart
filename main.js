@@ -5,56 +5,56 @@ let products = [
         id: 1,
         img: "nft1.jpg",
         name: "Bored Ape",
-        price: 27.89,
+        price: 10,
         quantity: 1
     },
     {
         id: 2,
         img: "nft2.jpg",
         name: "Bored Ace",
-        price: 17.89,
+        price: 20,
         quantity: 1
     },
     {
         id: 3,
         img: "nft3.jpg",
         name: "Bored Ace",
-        price: 10.90,
+        price: 15,
         quantity: 1
     },
     {
         id: 4,
         img: "nft4.jpg",
         name: "Bored ika",
-        price: 13.80,
+        price: 25,
         quantity: 1
     },
     {
         id: 5,
         img: "nft5.jpg",
         name: "Bored Kib",
-        price: 22.80,
+        price: 10,
         quantity: 1
     },
     {
         id: 6,
         img: "nft6.jpg",
         name: "Bored Bam",
-        price: 19.40,
+        price: 25,
         quantity: 1
     },
     {
         id: 7,
         img: "nft7.jpg",
         name: "Bored Lak",
-        price: 18.35,
+        price: 15,
         quantity: 1
     },
     {
         id: 8,
         img: "nft8.jpg",
         name: "Bored ika",
-        price: 18.20,
+        price: 20,
         quantity: 1
     },
     
@@ -101,10 +101,7 @@ const removeLikedItem = (itemId) => {
 const removeAddedItem = (itemId, itemPrice) => { 
     added = added.filter(item => item.id != itemId)
     displayToCart(added, "added", addedBody)
-    let quantity = 1
-    products.map((product) => itemId == product.id ? quantity = product.quantity : null)
-    total -= itemPrice * quantity
-
+    total -= itemPrice 
     insertTotal(total)
 }
 const displayToast = (itemImg) => document.querySelector('#toast').innerHTML += 
@@ -118,6 +115,8 @@ const displayToast = (itemImg) => document.querySelector('#toast').innerHTML +=
 const addedToast = document.querySelector('#liveToast')
 const addedItemImg = document.querySelector('.added-item-img')
 
+const calcTotal = (price, quantity) => total += parseFloat(price) * quantity
+
 const push = (array, arrayName, obj) => {
     const id = obj.parentElement.parentElement.id
     let quantity = 1
@@ -127,9 +126,9 @@ const push = (array, arrayName, obj) => {
 
     if(arrayName == "added") {
         if(!array.some((el) => el.id === id)){
-            displayToast(item.img);
             array.push({id, img, name, price, quantity});
-            total += parseFloat(price )* quantity
+            displayToast(item.img);
+            calcTotal(price, quantity)
         } else openAlertModal()
     }
     if(arrayName == "liked"){
@@ -169,33 +168,37 @@ const likedToggle = () => {
     totalBody.style.display = "none"
 }
 
+const cart = document.querySelector('.navbar-toggler')
+
 const totalBody = document.querySelector(".total");
-const insertTotal = (total) => {
-    totalBody.innerHTML = `Total : ${total.toFixed(2)} ETH`.replace('-', '')
-}
+const insertTotal = (total) => totalBody.innerHTML = `Total : ${total.toFixed(2)} ETH`.replace('-', '')
+
 const plus = (id) => {
-    products[id].quantity += 1
-    insertTotal(products[id -1].price * products[id].quantity)
-    displayToCart(added, "added", addedBody, products[id].quantity)
+    total = 0
+    added.map(item => item.id == id ? item.quantity += 1 : item.quantity)
+    added.map(item => total += item.price * item.quantity)
+    insertTotal(total);
+    displayToCart(added, "added", addedBody)
 }
 const minus = (id) => {
-    products[id].quantity > 0 ? products[id].quantity -= 1 : products[id].quantity
-    insertTotal(products[id -1].price * products[id].quantity)
-    displayToCart(added, "added", addedBody, products[id].quantity)
+    total = 0
+    added.map(item => item.id == id && item.quantity > 1 ? item.quantity -= 1 : item.quantity)
+    added.map(item => total += item.price * item.quantity)
+    insertTotal(total);
+    displayToCart(added, "added", addedBody)
+
 }
-const displayToCart = (array, arrayName, location, quantity = 1) => {
+const displayToCart = (array, arrayName, location) => {
     array.length == 0 ? location.innerHTML = `You have not ${arrayName} any item yet` 
-    : location.innerHTML = array.map(item => `<div class="cart-product">
-    <span>
-    <p>${quantity}</p>
-    <span><i onclick="plus(${item.id})" class="bi bi-plus-circle-fill"></i>
-    <i onclick="minus(${item.id})" class="bi bi-dash-circle-fill"></i></span>
-    </span>
-    <img src="./assets/images/${item.img}" />
-    <div><h3>${item.price} ETH</h3><p>${item.name}</p></div>
-    ${arrayName == "liked" ? `<i onclick="removeLikedItem(${item.id})" class="bi bi-x-lg"></i>` 
-    : `<i onclick="removeAddedItem(${item.id}, ${item.price})" class="bi bi-trash3-fill"></i>`}
-    </div><hr/>`).join('') 
+    : location.innerHTML = array.map(item =>
+         `<div class="cart-product">
+         <span><p>${item.quantity}</p>
+         <span><i onclick="plus(${item.id})" class="bi bi-plus-circle-fill"></i>
+         <i onclick="minus(${item.id})" class="bi bi-dash-circle-fill"></i></span></span>
+         <img src="./assets/images/${item.img}" />
+         <div><h3>${item.price} ETH</h3><p>${item.name}</p></div>
+         ${arrayName == "liked" ? `<i onclick="removeLikedItem(${item.id})" class="bi bi-x-lg"></i>` 
+         : `<i onclick="removeAddedItem(${item.id}, ${item.price * item.quantity})" class="bi bi-trash3-fill"></i>`}</div><hr/>`).join('') 
 }
 
 const mainBanner = document.querySelector('.main-banner')
