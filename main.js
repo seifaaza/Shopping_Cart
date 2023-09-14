@@ -192,9 +192,9 @@ const displayToCart = (array, arrayName, location) => {
     array.length == 0 ? location.innerHTML = `You have not ${arrayName} any item yet` 
     : location.innerHTML = array.map(item =>
          `<div class="cart-product">
-         <span><p>${item.quantity}</p>
+         ${arrayName == "added" ? `<span><p>${item.quantity}</p>
          <span><i onclick="plus(${item.id})" class="bi bi-plus-circle-fill"></i>
-         <i onclick="minus(${item.id})" class="bi bi-dash-circle-fill"></i></span></span>
+         <i onclick="minus(${item.id})" class="bi bi-dash-circle-fill"></i></span></span>`: ''}
          <img src="./assets/images/${item.img}" />
          <div><h3>${item.price} ETH</h3><p>${item.name}</p></div>
          ${arrayName == "liked" ? `<i onclick="removeLikedItem(${item.id})" class="bi bi-x-lg"></i>` 
