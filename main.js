@@ -100,17 +100,21 @@ const removeLikedItem = (itemId) => {
 const removeAddedItem = (itemId, itemPrice) => { 
     added = added.filter(item => item.id != itemId)
     displayToCart(added, "added", addedBody)
-    total = total - itemPrice
+    let quantity = 1
+    products.map((product) => itemId == product.id ? quantity = product.quantity : null)
+    total = total - itemPrice * quantity
     insertTotal(total)
 }
 
 const push = (array, arrayName, obj) => {
     const id = obj.parentElement.parentElement.id
-    products.map((product) => id == product.id ? item = product : null)
+    let quantity = 0
+    products.map((product) => {
+        if (id == product.id) { item = product ; quantity = product.quantity}})
     let img = item.img, price = item.price, name = item.name
 
     !array.some((el) => el.id === id) ? array.push({id, img, name, price})
-    && arrayName == "added" ? total = parseFloat(price)+total : total
+    && arrayName == "added" ? total += parseFloat(price )* quantity : total
     : arrayName == "liked" ? removeLikedItem(id) : openAlertModal()
     insertTotal(total)
 }
@@ -159,7 +163,6 @@ const displayToCart = (array, arrayName, location, obj) => {
     </div><hr/>` ) 
 }
 
-console.log(added);
 
 
 
