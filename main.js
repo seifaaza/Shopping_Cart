@@ -107,6 +107,16 @@ const removeAddedItem = (itemId, itemPrice) => {
 
     insertTotal(total)
 }
+const displayToast = (itemImg) => document.querySelector('#toast').innerHTML += 
+`<div class="toast-container position-fixed bottom-0 end-0 p-3">
+<div id="liveToast" class="toast">
+    <img src='./assets/images/${itemImg}' class="added-item-img" >
+    <span>You have added an item to the cart</span>
+</div>
+</div>`
+
+const addedToast = document.querySelector('#liveToast')
+const addedItemImg = document.querySelector('.added-item-img')
 
 const push = (array, arrayName, obj) => {
     const id = obj.parentElement.parentElement.id
@@ -115,9 +125,18 @@ const push = (array, arrayName, obj) => {
         if (id == product.id) { item = product ; quantity = product.quantity}})
     let img = item.img, price = item.price, name = item.name
 
-    !array.some((el) => el.id === id) ? array.push({id, img, name, price, quantity})
-    && arrayName == "added" ? total += parseFloat(price )* quantity : total
-    : arrayName == "liked" ? removeLikedItem(id) : openAlertModal()
+    if(arrayName == "added") {
+        if(!array.some((el) => el.id === id)){
+            displayToast(item.img);
+            array.push({id, img, name, price, quantity});
+            total += parseFloat(price )* quantity
+        } else openAlertModal()
+    }
+    if(arrayName == "liked"){
+        if(!array.some((el) => el.id === id)){
+            array.push({id, img, name, price, quantity})
+        } else removeLikedItem(id)
+    }
     insertTotal(total)
 }
 
