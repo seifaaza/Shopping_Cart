@@ -62,17 +62,16 @@ let products = [
 
 // Items listing with DOM
 const productList = document.querySelector('.product-list')
-const listProduct = () => {products.map((product) => {
-    productList.innerHTML +=
-   `<div id="${product.id}" class="product">
+
+const listProduct = (array) => productList.innerHTML = array.map(product => 
+    `<div id="${product.id}" class="product">
        <div><span class="product-img" style="background-image: url('./assets/images/${product.img}')"></span></div>
        <span><p>${product.price} ETH</p><p>${product.name}</p></span>
        <span><i class="bi bi-heart" id="like" onclick='like(this)'></i>
        <i class="bi bi-plus-circle-fill" id="add" onclick='add(this)'></i></span>
-    </div>`
-})
-}
-listProduct()
+    </div>` ).join('') 
+
+listProduct(products)
 
 const body = document.querySelector('body')
 const backdrop = document.createElement("div");
@@ -163,7 +162,7 @@ const displayToCart = (array, arrayName, location) => {
     <div><h3>${item.price} ETH</h3><p>${item.name}</p></div>
     ${arrayName == "liked" ? `<i onclick="removeLikedItem(${item.id})" class="bi bi-x-lg"></i>` 
     : `<i onclick="removeAddedItem(${item.id}, ${item.price})" class="bi bi-trash3-fill"></i>`}
-    </div><hr/>` ) 
+    </div><hr/>`).join('') 
 }
 
 const mainBanner = document.querySelector('.main-banner')
@@ -172,11 +171,9 @@ const searchInput = document.querySelector('.search-input')
 searchInput.addEventListener('click', function(){ mainBanner.style.display = "none" })
 searchInput.addEventListener('blur', function(){ mainBanner.style.display = "block" })
 searchInput.addEventListener('keyup', function(e){
-    let searchedItem = e.target.value ;
-    console.log(searchedItem);
-    products = products.filter(product => product.name.includes(searchedItem))
-   
-    console.log(products);
+    let searchedItems = [], searchedItem = e.target.value ;
+    searchedItems = products.filter(product => product.name.includes(searchedItem))
+    listProduct(searchedItems)
 })
 
 
