@@ -151,16 +151,25 @@ input:focus, input{
 .product-list{
    display: grid;
     gap: 5rem;
-    grid-template-columns: repeat( auto-fit, minmax(200px, 1fr) );
+    grid-template-columns: repeat( auto-fit, minmax(220px, 1fr) );
     justify-items: center;
 }
 .product{
     width: fit-content;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     z-index: 1;
+    border: gray .5px solid;
+    border-radius: 10px;
+    width: 250px;
+    transition: 200ms;
+    background-color: white;
+}
+.product:hover{
+    transform: scale(1.07);
+    box-shadow: rgba(0, 0, 0, 0.069) 2px 2px 20px 9px;
 }
 .product-img{
     height: 100%;
@@ -169,20 +178,19 @@ input:focus, input{
     background-position: center;
     transition: 300ms;
 }
-.product-img:hover {
+.product:hover .product-img {
     transform: scale(1.15) rotate(3deg);
 }
 .product > div:first-child{
     height: 200px;
-    width: 200px;
-    border-radius: 10px;
+    width: 100%;
+    border-radius: 10px 10px 0 0;
     overflow: hidden;
 }
 
 .product p {
     align-self: start ;
-    padding-top: .3rem !important;
-    margin: 0% 1.5rem 0% 0% !important;
+    margin: 0% !important;
 }
 .product p:first-of-type{
     font-size: 1.5rem;
@@ -193,6 +201,13 @@ input:focus, input{
 .product p:last-of-type{
     font-size: 1.1rem;
 }
+
+.product span:first-of-type{
+    padding: .5rem 0 1.3rem 1.3rem ;
+} 
+.product span:last-of-type{
+    padding: .5rem 1.3rem 1.3rem 0 ;
+} 
 .product span:last-of-type{
     display: inline-flex;
     gap: .8rem;

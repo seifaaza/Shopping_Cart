@@ -1,6 +1,6 @@
 // Initialize the variables
 let total = 0, liked = [], added = []
-const products = [
+let products = [
     {
         id: 1,
         img: "nft1.jpg",
@@ -62,7 +62,7 @@ const products = [
 
 // Items listing with DOM
 const productList = document.querySelector('.product-list')
-products.map((product, index) => {
+const listProduct = () => {products.map((product) => {
     productList.innerHTML +=
    `<div id="${product.id}" class="product">
        <div><span class="product-img" style="background-image: url('./assets/images/${product.img}')"></span></div>
@@ -71,6 +71,8 @@ products.map((product, index) => {
        <i class="bi bi-plus-circle-fill" id="add" onclick='add(this)'></i></span>
     </div>`
 })
+}
+listProduct()
 
 const body = document.querySelector('body')
 const backdrop = document.createElement("div");
@@ -126,7 +128,7 @@ const likeToggle = (obj) => {
 }
 const add = (obj) => {
     push(added, "added", obj)
-    displayToCart(added, "added", addedBody, obj)
+    displayToCart(added, "added", addedBody)
 }
 const like = (obj) =>{
     likeToggle(obj)
@@ -154,7 +156,7 @@ const insertTotal = (total) => {
     totalBody.innerHTML = `Total : ${total.toFixed(2)} ETH`.replace('-', '')
 }
 
-const displayToCart = (array, arrayName, location, obj) => {
+const displayToCart = (array, arrayName, location) => {
     array.length == 0 ? location.innerHTML = `You have not ${arrayName} any item yet` 
     : location.innerHTML = array.map(item => `<div class="cart-product">
     <img src="./assets/images/${item.img}" />
@@ -164,7 +166,18 @@ const displayToCart = (array, arrayName, location, obj) => {
     </div><hr/>` ) 
 }
 
+const mainBanner = document.querySelector('.main-banner')
+const searchInput = document.querySelector('.search-input')
 
+searchInput.addEventListener('click', function(){ mainBanner.style.display = "none" })
+searchInput.addEventListener('blur', function(){ mainBanner.style.display = "block" })
+searchInput.addEventListener('keyup', function(e){
+    let searchedItem = e.target.value ;
+    console.log(searchedItem);
+    products = products.filter(product => product.name.includes(searchedItem))
+   
+    console.log(products);
+})
 
 
 
