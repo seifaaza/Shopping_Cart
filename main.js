@@ -90,7 +90,6 @@ const closeAlertModal = () => {
     alertModal.style.display="none"
     alertModal.classList.remove('show')
 }
-
 // Close the alert modal when click outside
 body.onclick = (e) => e.target == alertModal ? closeAlertModal() : null;
 
@@ -173,14 +172,14 @@ const cart = document.querySelector('.navbar-toggler')
 const totalBody = document.querySelector(".total");
 const insertTotal = (total) => { 
     totalBody.innerHTML = `Total : ${total.toFixed(2)} ETH`.replace('-', '')
-    localStorage.setItem("items", JSON.stringify(added));
-    localStorage.setItem("total", JSON.stringify(total));
 }
 
 const plus = (id) => {
     total = 0
     added.map(item => item.id == id ? item.quantity += 1 : item.quantity)
-    added.map(item => total += item.price * item.quantity)
+    added.map(item => {
+         total += item.price * item.quantity
+    })
     insertTotal(total);
     displayToCart(added, "added", addedBody)
 
@@ -191,22 +190,6 @@ const minus = (id) => {
     added.map(item => total += item.price * item.quantity)
     insertTotal(total);
     displayToCart(added, "added", addedBody)
-}
-
-window.onload = function() {
-    let test = localStorage.getItem("items")
-    let data = JSON.parse(test)
-    if(data !== 0) {
-        addedBody.innerHTML = data.map(item =>
-            `<div class="cart-product">
-            <span><p>${item.quantity}</p>
-            <span><i onclick="plus(${item.id})" class="bi bi-plus-circle-fill"></i>
-            <i onclick="minus(${item.id})" class="bi bi-dash-circle-fill"></i></span></span>
-            <img src="./assets/images/${item.img}" />
-            <div><h3>${item.price} ETH</h3><p>${item.name}</p></div>
-            ${added == "liked" ? `<i onclick="removeLikedItem(${item.id})" class="bi bi-x-lg"></i>` 
-            : `<i onclick="removeAddedItem(${item.id}, ${item.price * item.quantity})" class="bi bi-trash3-fill"></i>`}</div><hr/>`).join('')
-    }
 }
 
 const displayToCart = (array, arrayName, location) => {
