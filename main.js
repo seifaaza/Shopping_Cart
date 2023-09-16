@@ -212,7 +212,7 @@ searchInput.addEventListener('click', function(){ mainBanner.style.display = "no
 searchInput.addEventListener('blur', function(){ mainBanner.style.display = "block" })
 searchInput.addEventListener('keyup', function(e){
     let searchedItems = [], searchedItem = e.target.value ;
-    searchedItems = products.filter(product => product.name.includes(searchedItem))
+    searchedItems = products.filter(product => product.name.toLowerCase().includes(searchedItem.toLowerCase()))
     listProduct(searchedItems)
 })
 
